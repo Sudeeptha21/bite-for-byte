@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     GROQ_API_KEY: str = ""
+    MODEL_NAME: str = "llama-3.3-70b-versatile"
     DB_NAME: str = "food_ai"
     DB_USER: str = "postgres"
     DB_PASSWORD: str = ""

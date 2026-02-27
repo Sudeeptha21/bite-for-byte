@@ -22,3 +22,6 @@ CREATE TABLE IF NOT EXISTS requests_log (
     estimated_cost_usd NUMERIC,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_requests_log_created_at ON requests_log(created_at);
+CREATE INDEX IF NOT EXISTS idx_requests_log_endpoint ON requests_log(endpoint);
