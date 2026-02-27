@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic
+pydantic-settings
+requests
+psycopg2-binary
+redis
+groq
+biopython
+python-multipart
+pillow
+pyzbar
