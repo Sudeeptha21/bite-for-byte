@@ -12,10 +12,10 @@ class TTSRequest(BaseModel):
 @router.post("/stt")
 async def stt(file: UploadFile = File(...)):
     data = await file.read()
-    return {"text": transcribe_audio(data)}
+    return {"text": transcribe_audio(data, filename=file.filename or "audio.wav")}
 
 
 @router.post("/tts")
 def tts(req: TTSRequest):
-    audio = synthesize_speech(req.text)
-    return {"audio_bytes": len(audio)}
+    audio_base64, mime_type = synthesize_speech(req.text)
+    return {"audio_base64": audio_base64, "mime_type": mime_type}

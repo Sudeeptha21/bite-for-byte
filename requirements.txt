@@ -11,3 +11,5 @@ biopython
 python-multipart
 pillow
 pyzbar
+gTTS
+opencv-python

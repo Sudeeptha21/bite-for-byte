@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     USDA_API_KEY: str = ""
     REDIS_URL: str = "redis://localhost:6379/0"
     ADMIN_PASSWORD: str = "change-me"
-    SESSION_TTL_SECONDS: int = 14400
+    SESSION_TTL_SECONDS: int = 21600
 
     class Config:
         env_file = ".env"

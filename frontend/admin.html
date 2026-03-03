@@ -1,8 +1,46 @@
 <!doctype html>
-<html>
-  <head><meta charset="utf-8"><title>Admin</title></head>
-  <body>
-    <h1>Admin Dashboard</h1>
-    <p>Metrics UI placeholder.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bite for Byte Admin</title>
+  <style>
+    body { font-family: "Trebuchet MS", sans-serif; background: #f6fff1; margin: 0; padding: 24px; }
+    .card { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #d7e9c5; border-radius: 14px; padding: 18px; }
+    h1 { margin-top: 0; color: #2f6317; }
+    .row { margin: 10px 0; padding: 10px; background: #f8fff3; border-radius: 8px; border: 1px solid #dbeccd; }
+    label { display: block; margin-bottom: 6px; color: #4b6340; }
+    input, button { padding: 8px 10px; font: inherit; }
+    button { background: #3f7d20; border: 0; color: #fff; border-radius: 8px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Admin Metrics</h1>
+    <label for="pwd">Admin password header value</label>
+    <input id="pwd" type="password" placeholder="x-admin-password" />
+    <button id="loadBtn">Load Metrics</button>
+    <div id="out"></div>
+  </div>
+
+  <script>
+    document.getElementById("loadBtn").addEventListener("click", async () => {
+      const pwd = document.getElementById("pwd").value;
+      const res = await fetch('/admin/metrics', { headers: { 'x-admin-password': pwd } });
+      const out = document.getElementById('out');
+      if (!res.ok) {
+        out.innerHTML = `<div class="row">Error: ${res.status}</div>`;
+        return;
+      }
+      const data = await res.json();
+      out.innerHTML = `
+        <div class="row">Requests: ${data.requests}</div>
+        <div class="row">Success Rate: ${data.success_rate}%</div>
+        <div class="row">Error Rate: ${data.error_rate}%</div>
+        <div class="row">Average Latency: ${data.avg_latency_ms} ms</div>
+        <div class="row">Estimated Cost: $${data.estimated_cost_usd}</div>
+      `;
+    });
+  </script>
+</body>
 </html>
